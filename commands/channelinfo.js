@@ -3,10 +3,16 @@ const {RichEmbed} = require('discord.js')
 
 exports.run = async (client, message, args) => {
 
-  const channel = client.channels.get(args[0])
+  let channel;
 
-  if(!channel)
-    return message.channel.send(`${redtick} channel not found, be sure to have provided a snowflake`)
+  if (args[0]) {
+    channel = client.channels.get(args[0])
+
+    if(!channel)
+      return message.channel.send(`${redtick} The channel was not found. Please be sure to have provided the correct channel ID and try again`)
+  } else {
+    channel = message.channel;
+  }
 
   const embed = new RichEmbed()
   .setTitle(`Information for channel ${channel.name || ''}`)
